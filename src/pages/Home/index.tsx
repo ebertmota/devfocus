@@ -17,32 +17,54 @@ const Home: React.FC = () => {
   const [started, setIsStarted] = useState(false);
   const [running, setIsRunnig] = useState(false);
 
+  // const handleRequestedPermissions = useCallback(() => {}, []);
+
+  useEffect(() => {
+    async function handleNotificationRequest() {
+      if (!Notification) {
+        alert('Esse browser não suporta notificações desktop');
+      }
+      if (Notification.permission !== 'granted') {
+        Notification.requestPermission();
+      }
+    }
+    handleNotificationRequest();
+  }, []);
+
   useEffect(() => {
     if (running) {
-      // exit early when we reach 0
-      if (!seconds) {
-        if (!minutes) return;
-        const minutesInterval = setInterval(() => {
-          setMinutes(minutes - 1);
-          setSeconds(59);
-        }, 1000);
+      // if seconds get to 0, down minute
+      if (!seconds && !minutes) {
+        setIsRunnig(false);
+        const notification = new Notification('Time to take a break!', {
+          icon:
+            'https://i.pinimg.com/originals/00/cc/b6/00ccb6f59d1215f5666ad229af120e9f.png',
+          body: 'get some coffe...',
+        });
 
-        // clear interval on re-render to avoid memory leaks
-        return () => clearInterval(minutesInterval);
-        // add timeLeft as a dependency to re-rerun the effect
-        // when we update it
+        setMinutes(25);
       }
 
-      // save intervalId to clear the interval when the
-      // component re-renders
+      if (!seconds) {
+        // if minutes get to 0 don't do nothing
+        // if (!minutes) return;
+        if (!minutes) {
+          return;
+        }
+
+        const minutesInterval = setInterval(() => {
+          setSeconds(59);
+          setMinutes(minutes - 1);
+        }, 1000);
+
+        return () => clearInterval(minutesInterval);
+      }
+
       const secondsInterval = setInterval(() => {
         setSeconds(seconds - 1);
       }, 1000);
 
-      // clear interval on re-render to avoid memory leaks
       return () => clearInterval(secondsInterval);
-      // add timeLeft as a dependency to re-rerun the effect
-      // when we update it
     }
   }, [seconds, running, minutes]);
 
@@ -66,9 +88,9 @@ const Home: React.FC = () => {
             {String(seconds).padStart(2, '0')}
           </span>
           <button type="button" onClick={controlsCountdown}>
-            {running || (started === false && 'START')}
+            {!running && minutes === 25 && 'START'}
             {running && 'PAUSE'}
-            {running === false && seconds < 60 && seconds > 0 && 'RESUME'}
+            {running === false && minutes < 25 && 'RESUME'}
           </button>
         </Timer>
       </Content>
