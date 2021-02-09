@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.js": "/devfocus/static/js/main.b23ca92a.chunk.js",
+    "main.js.map": "/devfocus/static/js/main.b23ca92a.chunk.js.map",
+    "runtime-main.js": "/devfocus/static/js/runtime-main.cd310efd.js",
+    "runtime-main.js.map": "/devfocus/static/js/runtime-main.cd310efd.js.map",
+    "static/js/2.8848c996.chunk.js": "/devfocus/static/js/2.8848c996.chunk.js",
+    "static/js/2.8848c996.chunk.js.map": "/devfocus/static/js/2.8848c996.chunk.js.map",
+    "index.html": "/devfocus/index.html",
+    "static/js/2.8848c996.chunk.js.LICENSE.txt": "/devfocus/static/js/2.8848c996.chunk.js.LICENSE.txt",
+    "static/media/dev-ilustration.544f3d09.svg": "/devfocus/static/media/dev-ilustration.544f3d09.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cd310efd.js",
+    "static/js/2.8848c996.chunk.js",
+    "static/js/main.b23ca92a.chunk.js"
+  ]
+}
