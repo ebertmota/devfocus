@@ -26,7 +26,7 @@ export default createGlobalStyle`
     cursor: pointer;
   }
 
-  ul {
+  ul, li {
     list-style: none;
   }
 

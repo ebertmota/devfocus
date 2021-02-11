@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import devIlustration from '../../assets/dev-ilustration.svg';
 
+interface ITimerMenuItem {
+  selected?: Boolean;
+}
+
 export const Container = styled.div`
   display: flex;
   height: 100%;
@@ -33,13 +37,37 @@ export const Timer = styled.div`
     font-size: 120px;
   }
 
-  button {
-    margin-top: 50px;
+  > button {
+    width: 200px;
+    margin-top: 25px;
     padding: 15px;
     width: 200px;
     border-radius: 8px;
     font-weight: bold;
   }
+`;
+
+export const TimerMenu = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 40px;
+`;
+
+export const TimerMenuItem = styled.button<ITimerMenuItem>`
+  border: 0;
+  box-shadow: 0;
+  padding: 8px 15px;
+  color: #fff;
+  transition: background 0.2s;
+  & + button {
+    margin: 0 5px;
+  }
+  font-weight: ${props => (props.selected ? '700' : '500')};
+  border-radius: 4px;
+  background: ${props => (props.selected ? 'rgba(0, 0, 0, 0.15)' : 'none')};
 `;
 
 export const DetailsSection = styled.div`
@@ -77,7 +105,7 @@ export const DetailsSectionHeader = styled.div`
     margin-bottom: 40px;
   }
 
-  button {
+  > button {
     width: 100%;
     max-width: 200px;
     padding: 15px;

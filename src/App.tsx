@@ -5,7 +5,7 @@ import GlobalStyles from './styles/global';
 import Routes from './routes';
 
 const App: React.FC = () => (
-  <Router>
+  <Router basename={process.env.PUBLIC_URL}>
     <Routes />
     <GlobalStyles />
   </Router>

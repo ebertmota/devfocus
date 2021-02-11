@@ -1,5 +1,3 @@
-import { clear } from 'console';
-import { parse } from 'path';
 import React, { useState, useEffect, useCallback } from 'react';
 import Header from '../../components/Header';
 
@@ -7,17 +5,33 @@ import {
   Container,
   Content,
   Timer,
+  TimerMenu,
+  TimerMenuItem,
   DetailsSection,
   DetailsSectionHeader,
 } from './styles';
+
+const options = [
+  {
+    name: 'Pomodoro',
+    minutes: 25,
+  },
+  {
+    name: 'Short Break',
+    minutes: 5,
+  },
+  {
+    name: 'Long Break',
+    minutes: 15,
+  },
+];
 
 const Home: React.FC = () => {
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
   const [started, setIsStarted] = useState(false);
   const [running, setIsRunnig] = useState(false);
-
-  // const handleRequestedPermissions = useCallback(() => {}, []);
+  const [selectedOption, setSelectedOption] = useState(0);
 
   useEffect(() => {
     async function handleNotificationRequest() {
@@ -77,12 +91,48 @@ const Home: React.FC = () => {
     setIsRunnig(state => !state);
   };
 
+  useEffect(() => {
+    const option = options.find((_, index) => index === selectedOption);
+
+    if (option) {
+      setMinutes(option.minutes);
+    }
+  }, [selectedOption]);
+
   return (
     <Container>
       <Header />
 
       <Content>
         <Timer>
+          <TimerMenu>
+            {options.map((option, optionIndex) => (
+              <TimerMenuItem
+                selected={optionIndex === selectedOption}
+                onClick={() => setSelectedOption(optionIndex)}
+              >
+                {option.name}
+              </TimerMenuItem>
+            ))}
+            {/* <TimerMenuItem
+              selected={selectedOption === 'Pomodoro'}
+              onClick={() => setSelectedOption('Pomodoro')}
+            >
+              Pomodoro
+            </TimerMenuItem>
+            <TimerMenuItem
+              selected={selectedOption === 'Short Break'}
+              onClick={() => setSelectedOption('Short Break')}
+            >
+              Short Break
+            </TimerMenuItem>
+            <TimerMenuItem
+              selected={selectedOption === 'Long Break'}
+              onClick={() => setSelectedOption('Long Break')}
+            >
+              Long Break
+            </TimerMenuItem>{' '} */}
+          </TimerMenu>
           <span>
             {String(minutes).padStart(2, '0')}:
             {String(seconds).padStart(2, '0')}
