@@ -15,6 +15,7 @@ const Home: React.FC = () => {
       <Content>
         <Timer />
       </Content>
+
       <DetailsSection>
         <DetailsSectionHeader>
           <h1>Online Pomodoro Timer to boost your productivity</h1>
@@ -27,7 +28,13 @@ const Home: React.FC = () => {
             from the Italian word for tomato, after the tomato-shaped kitchen
             timer that Cirillo used as a university student.
           </p>
-          <button type="button">Check it out</button>
+          <a
+            type="button"
+            href="https://en.wikipedia.org/wiki/Pomodoro_Technique"
+            target="blank"
+          >
+            Check it out
+          </a>
         </DetailsSectionHeader>
       </DetailsSection>
     </Container>

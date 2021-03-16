@@ -28,3 +28,16 @@ export const Content = styled.div`
   justify-content: space-between;
   padding: 20px;
 `;
+
+export const SettingsContainer = styled.div`
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    margin-right: 10px;
+  }
+`;

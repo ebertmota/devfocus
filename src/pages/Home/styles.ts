@@ -52,10 +52,10 @@ export const DetailsSectionHeader = styled.div`
     margin-bottom: 40px;
   }
 
-  > button {
+  > a {
     width: 100%;
     max-width: 200px;
-    padding: 15px;
+    padding: 15px 25px;
     font-size: 16px;
     border: 0;
     border-radius: 10px;
