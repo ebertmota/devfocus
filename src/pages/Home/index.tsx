@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../../components/Header';
 import Timer from '../../components/Timer';
 import {
@@ -9,11 +9,25 @@ import {
 } from './styles';
 
 const Home: React.FC = () => {
+  const [timerOptions, setTimerOptions] = useState([
+    {
+      name: 'Pomodoro',
+      minutes: 25,
+    },
+    {
+      name: 'Short Break',
+      minutes: 5,
+    },
+    {
+      name: 'Long Break',
+      minutes: 15,
+    },
+  ]);
   return (
     <Container>
-      <Header />
+      <Header setTimerOptions={setTimerOptions} timerOptions={timerOptions} />
       <Content>
-        <Timer />
+        <Timer timerOptions={timerOptions} />
       </Content>
 
       <DetailsSection>

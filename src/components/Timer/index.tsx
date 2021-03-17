@@ -1,43 +1,30 @@
 import React, { useState, useEffect, useMemo } from 'react';
-
 import { Container, TimerMenu, TimerMenuItem } from './styles';
 
-const options = [
-  {
-    name: 'Pomodoro',
-    minutes: 25,
-  },
-  {
-    name: 'Short Break',
-    minutes: 5,
-  },
-  {
-    name: 'Long Break',
-    minutes: 15,
-  },
-];
+interface TimerProps {
+  timerOptions: Array<{ name: string; minutes: number }>;
+}
 
-const Timer: React.FC = () => {
+const Timer: React.FC<TimerProps> = ({ timerOptions }) => {
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
   const [started, setIsStarted] = useState(false);
   const [running, setIsRunnig] = useState(false);
+
   const [selectedOption, setSelectedOption] = useState(0);
 
-  useEffect(() => {
-    async function handleNotificationRequest() {
-      if (!Notification) {
-        alert('Esse browser não suporta notificações desktop');
-      }
-      if (Notification.permission !== 'granted') {
-        Notification.requestPermission();
-      }
+  async function handleNotificationRequest() {
+    if (!Notification) {
+      alert('Esse browser não suporta notificações desktop');
     }
-    handleNotificationRequest();
-  }, []);
+    if (Notification.permission !== 'granted') {
+      Notification.requestPermission();
+    }
+  }
 
   useEffect(() => {
     if (running) {
+      handleNotificationRequest();
       // if seconds get to 0, down minute
       if (!seconds && !minutes) {
         setIsRunnig(false);
@@ -83,7 +70,7 @@ const Timer: React.FC = () => {
   };
 
   useEffect(() => {
-    const option = options.find((_, index) => index === selectedOption);
+    const option = timerOptions.find((_, index) => index === selectedOption);
 
     if (option) {
       setMinutes(option.minutes);
@@ -93,13 +80,13 @@ const Timer: React.FC = () => {
   }, [selectedOption]);
 
   const currentMinutes = useMemo(() => {
-    return options[selectedOption].minutes;
+    return timerOptions[selectedOption].minutes;
   }, [selectedOption]);
 
   return (
     <Container>
       <TimerMenu>
-        {options.map((option, optionIndex) => (
+        {timerOptions.map((option, optionIndex) => (
           <TimerMenuItem
             selected={optionIndex === selectedOption}
             onClick={() => setSelectedOption(optionIndex)}
@@ -107,24 +94,6 @@ const Timer: React.FC = () => {
             {option.name}
           </TimerMenuItem>
         ))}
-        {/* <TimerMenuItem
-        selected={selectedOption === 'Pomodoro'}
-        onClick={() => setSelectedOption('Pomodoro')}
-      >
-        Pomodoro
-      </TimerMenuItem>
-      <TimerMenuItem
-        selected={selectedOption === 'Short Break'}
-        onClick={() => setSelectedOption('Short Break')}
-      >
-        Short Break
-      </TimerMenuItem>
-      <TimerMenuItem
-        selected={selectedOption === 'Long Break'}
-        onClick={() => setSelectedOption('Long Break')}
-      >
-        Long Break
-      </TimerMenuItem>{' '} */}
       </TimerMenu>
       <span>
         {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}

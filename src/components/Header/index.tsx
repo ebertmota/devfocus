@@ -1,10 +1,15 @@
 import React, { useCallback, useState } from 'react';
 import { MdSettings } from 'react-icons/md';
-import Modal from './SettingsModal';
+import SettingsModal from './SettingsModal';
 
 import { Container, Content, SettingsContainer } from './styles';
 
-const Header: React.FC = () => {
+export interface TimerProps {
+  setTimerOptions: Function;
+  timerOptions: Array<{ name: string; minutes: number }>;
+}
+
+const Header: React.FC<TimerProps> = ({ setTimerOptions, timerOptions }) => {
   const [modalIsActive, setModalIsActive] = useState(false);
 
   const toggleModalActive = useCallback(() => {
@@ -24,7 +29,11 @@ const Header: React.FC = () => {
           <MdSettings size={30} color="#FFF" />
         </SettingsContainer>
 
-        <Modal isOpen={modalIsActive} />
+        <SettingsModal
+          isOpen={modalIsActive}
+          setTimerOptions={setTimerOptions}
+          timerOptions={timerOptions}
+        />
       </Content>
     </Container>
   );
