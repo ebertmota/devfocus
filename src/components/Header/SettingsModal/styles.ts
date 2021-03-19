@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-import { SettingsModalProps } from './index';
-
-export const Container = styled.div<SettingsModalProps>`
+export const Container = styled.div<{ isOpen: Boolean }>`
   display: ${props => (props.isOpen ? 'block' : 'none')};
   position: absolute;
   top: 70px;

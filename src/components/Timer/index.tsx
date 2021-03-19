@@ -15,6 +15,7 @@ const Timer: React.FC<TimerProps> = ({ timerOptions }) => {
 
   async function handleNotificationRequest() {
     if (!Notification) {
+      // eslint-disable-next-line
       alert('Esse browser não suporta notificações desktop');
     }
     if (Notification.permission !== 'granted') {
@@ -77,11 +78,11 @@ const Timer: React.FC<TimerProps> = ({ timerOptions }) => {
       setSeconds(0);
       setIsRunnig(false);
     }
-  }, [selectedOption]);
+  }, [selectedOption, timerOptions]);
 
   const currentMinutes = useMemo(() => {
     return timerOptions[selectedOption].minutes;
-  }, [selectedOption]);
+  }, [selectedOption, timerOptions]);
 
   return (
     <Container>
