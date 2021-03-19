@@ -39,7 +39,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         minutes: longBreak,
       },
     ];
-    // setTimerOptions(newOptions);
+    setTimerOptions(newOptions);
     // eslint-disable-next-line
     console.log(setTimerOptions);
   }, [setTimerOptions, pomodoro, shortBreak, longBreak]);
