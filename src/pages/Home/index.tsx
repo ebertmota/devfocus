@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Timer from '../../components/Timer';
 import {
@@ -9,20 +9,35 @@ import {
 } from './styles';
 
 const Home: React.FC = () => {
-  const [timerOptions, setTimerOptions] = useState([
-    {
-      name: 'Pomodoro',
-      minutes: 25,
-    },
-    {
-      name: 'Short Break',
-      minutes: 5,
-    },
-    {
-      name: 'Long Break',
-      minutes: 15,
-    },
-  ]);
+  const loadedSettings = localStorage.getItem('@devfocus/timerSettings');
+
+  // useEffect(() => {
+  //   const loadedSettings = localStorage.getItem('@devfocus/timerSettings');
+
+  //   if (loadedSettings) {
+  //     setTimerOptions(JSON.parse(loadedSettings));
+  //   }
+  // }, []);
+
+  const [timerOptions, setTimerOptions] = useState(() => {
+    if (loadedSettings) {
+      return JSON.parse(loadedSettings);
+    }
+    return [
+      {
+        name: 'Pomodoro',
+        minutes: 25,
+      },
+      {
+        name: 'Short Break',
+        minutes: 5,
+      },
+      {
+        name: 'Long Break',
+        minutes: 15,
+      },
+    ];
+  });
   return (
     <Container>
       <Header setTimerOptions={setTimerOptions} timerOptions={timerOptions} />
