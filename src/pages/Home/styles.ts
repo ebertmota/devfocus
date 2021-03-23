@@ -36,6 +36,10 @@ export const DetailsSectionHeader = styled.div`
   max-width: 50%;
   color: #202024;
 
+  @media (max-width: 840px) {
+    max-width: 100%;
+  }
+
   h1 {
     margin-bottom: 20px;
   }
