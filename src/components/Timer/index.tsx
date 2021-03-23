@@ -29,7 +29,7 @@ const Timer: React.FC<TimerProps> = ({ timerOptions }) => {
       // if seconds get to 0, down minute
       if (!seconds && !minutes) {
         setIsRunnig(false);
-        const notification = new Notification('Time to take a break!', {
+        const notification = new Notification('Your time is over', {
           icon:
             'https://i.pinimg.com/originals/00/cc/b6/00ccb6f59d1215f5666ad229af120e9f.png',
           body: 'get some coffe...',
@@ -89,6 +89,7 @@ const Timer: React.FC<TimerProps> = ({ timerOptions }) => {
       <TimerMenu>
         {timerOptions.map((option, optionIndex) => (
           <TimerMenuItem
+            key={option.name}
             selected={optionIndex === selectedOption}
             onClick={() => setSelectedOption(optionIndex)}
           >
