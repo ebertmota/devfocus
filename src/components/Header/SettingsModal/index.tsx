@@ -1,6 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import { Switch } from 'react-router-dom';
-import { OperationCanceledException } from 'typescript';
 
 import { Container } from './styles';
 
@@ -25,24 +23,35 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   const [longBreak, setLongBreak] = useState(15);
 
   const handleSaveSettings = useCallback(() => {
-    const newOptions = [
-      {
-        name: 'Pomodoro',
-        minutes: pomodoro,
-      },
-      {
-        name: 'Short Break',
-        minutes: shortBreak,
-      },
-      {
-        name: 'Long Break',
-        minutes: longBreak,
-      },
-    ];
+    const newOptions = timerOptions.map((item: SettingsItemProps) => {
+      if (item.name === 'Pomodoro') {
+        return {
+          name: item.name,
+          minutes: pomodoro,
+        };
+      }
+
+      if (item.name === 'Short Break') {
+        return {
+          name: item.name,
+          minutes: shortBreak,
+        };
+      }
+
+      if (item.name === 'Long Break') {
+        return {
+          name: item.name,
+          minutes: longBreak,
+        };
+      }
+
+      return item;
+    });
+
+    localStorage.setItem('@devfocus/timerSettings', JSON.stringify(newOptions));
+
     setTimerOptions(newOptions);
-    // eslint-disable-next-line
-    console.log(setTimerOptions);
-  }, [setTimerOptions, pomodoro, shortBreak, longBreak]);
+  }, [setTimerOptions, pomodoro, shortBreak, longBreak, timerOptions]);
 
   return (
     <Container isOpen={isOpen}>
